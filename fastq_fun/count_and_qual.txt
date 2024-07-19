@@ -1,0 +1,40 @@
+import os
+from Bio import SeqIO
+from statistics import mean
+
+# Function to count sequences and calculate average quality score
+def analyze_fastq_file(input_file):
+    try:
+        with open(input_file, "r") as handle:
+            records = list(SeqIO.parse(handle, "fastq"))
+
+        num_sequences = len(records)
+        quality_scores = [mean(record.letter_annotations["phred_quality"]) for record in records]
+        average_quality_score = mean(quality_scores)
+
+        return num_sequences, average_quality_score
+    except Exception as e:
+        return None, None
+
+# Directory containing .fastq files
+input_directory = "./"
+
+# Output file to save results
+output_file = "sequence_analysis.txt"
+
+# Open the output file for writing
+with open(output_file, "w") as output:
+    output.write("File Name\tNumber of Sequences\tAverage Quality Score\n")
+
+    # Process each .fastq file in the input directory
+    for filename in os.listdir(input_directory):
+        if filename.endswith(".fastq"):
+            input_file = os.path.join(input_directory, filename)
+            num_sequences, avg_quality_score = analyze_fastq_file(input_file)
+            
+            if num_sequences is not None:
+                output.write(f"{filename}\t{num_sequences}\t{avg_quality_score:.2f}\n")
+            else:
+                output.write(f"{filename}\tError\tError\n")
+
+print(f"Results saved to {output_file}")

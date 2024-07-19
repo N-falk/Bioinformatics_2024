@@ -1,0 +1,37 @@
+import os
+import random
+from Bio import SeqIO
+
+# Directory containing .fastq files
+input_directory = os.getcwd()  # Use the current working directory
+
+# Create a directory for subsampled files if it doesn't exist
+output_directory = os.path.join(os.getcwd(), "subsampled_files")
+os.makedirs(output_directory, exist_ok=True)
+
+# Number of sequences to subsample
+subsample_size = 100
+
+# Function to subsample a .fastq file
+def subsample_fastq(input_file, output_file, subsample_size):
+    try:
+        with open(input_file, "r") as handle:
+            records = list(SeqIO.parse(handle, "fastq"))
+
+        if len(records) <= subsample_size:
+            SeqIO.write(records, output_file, "fastq")
+        else:
+            sampled_records = random.sample(records, subsample_size)
+            SeqIO.write(sampled_records, output_file, "fastq")
+        print(f"Subsampled {input_file} to {output_file} with {subsample_size} sequences.")
+    except Exception as e:
+        print(f"Error subsampling {input_file}: {e}")
+
+# Loop through .fastq files in the input directory
+for filename in os.listdir(input_directory):
+    if filename.endswith(".fastq"):
+        input_file = os.path.join(input_directory, filename)
+        output_file = os.path.join(output_directory, filename)
+        subsample_fastq(input_file, output_file, subsample_size)
+
+print(f"Subsampling completed. Subsampled files are saved in {output_directory}.")
