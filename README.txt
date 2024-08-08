@@ -1,21 +1,21 @@
 #Log into deepthought via jupyter hub: http://deepteachweb.flinders.edu.au/jupyter
 
 #To link your scratch directory to the file browser:
-ln -s /scratch/user/$USER scratch
+ln -s /scratch/user/falk0028 scratch
 
 #Now you will see your scratch directory and files in the file browser in the jupyter hub, which is more intuitive.
 
 #To undo this, use: 
-# rm scratch. 
+# rm scratch 
 #This command will delete the symbolic link to scratch without affecting the original directory /scratch/user/$USER or its contents. The removal only deletes the link, not the data it points to.
 # to remove a file use rm file_name OR for a directory use rm -rf directory_name
 
 ###############################################################################################################################################################################################
 ####Week 3
-####subsam.py and count_and_qual.py test
+####subsamp.py and count_and_qual.py test
 
 #Step 1: Make a directory in scratch for the test files:
-cd /scratch/user/USERNAME
+cd /scratch/user/falk0028
 #or click on the scratch folder
 #mkdir directory_name
 #cd directory_name
@@ -50,7 +50,7 @@ pip install biopython
 #can run the .txt versions of the script, but let's make them .py files first:
 nano count_and_qual.py
 #copy and paste the info from count_and_qual.txt into count_and_qual.py and ctrlX, Y, and then Enter
-nano subsam.py
+nano subsamp.py
 #copy and paste the info from subsamp.txt into subsamp.py and ctrlX, Y, and then Enter
 #Now we can run the scripts by using the following commands, which will run on all .fastq files in the directory:
 python count_and_qual.py
@@ -96,7 +96,7 @@ squeue --me
 python count_and_qual.py
 
 
-#Now run subsamp.py as a job submission by the following command:
+#Now run count_and_qual as a job submission by the following command:
 sbatch count_and_qual.slurm
 #and check the status of your job by:
 squeue --me
