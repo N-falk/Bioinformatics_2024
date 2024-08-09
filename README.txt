@@ -106,7 +106,10 @@ squeue --me
 #Navigate to the directory FastQC_fastp that's in Bioinformatics_2024. You can try this on your own or use the code below from whereever you are, replacing USER with your user FAN:
 cd /scratch/user/USER/Bioinformatics_2024/FastQC_fastp
 
-
+#activate MIniconda3 and initiate it with the following command:
+module load Miniconda3
+conda init bash
+#logout of terminal and start a new one
 #create a conda environment to install fastqc:
 conda create --name fastqc_env
 #activate the fastqc conda environment:
